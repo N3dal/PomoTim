@@ -33,6 +33,15 @@ class App(tk.Tk):
         # set the background color;
         self.configure(bg=Defaults.BACKGROUND_COLOR)
 
+        # setup the timer var for the label;
+        # this variable will update our time on the screen;
+
+        self.timer_value = tk.StringVar()
+        # set default value for this var;
+        self.timer_value.set("25:00")
+
+        # self.timer_label = tk.Label()
+
     def show(self):
         self.mainloop()
 
