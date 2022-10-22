@@ -24,6 +24,18 @@ class Defaults:
 
     }
 
+    BTN_PROPERTIES = {
+
+        "bg": BACKGROUND_COLOR,
+        "font": (WIN_FONT_FAMILY, 28, "bold"),
+        "highlightthickness": 0,
+        "border": 0,
+        "activebackground": BACKGROUND_COLOR,
+        "highlightbackground": "gray21",
+        "fg": "gray85"
+
+    }
+
     @staticmethod
     def clear():
         """
