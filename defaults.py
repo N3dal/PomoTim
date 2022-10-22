@@ -8,6 +8,10 @@ from os import system
 
 class Defaults:
     """"""
+    TITLE = "PomoTim"
+    WIN_WIDTH = 400
+    WIN_HEIGHT = 300
+    BACKGROUND_COLOR = "gray25"
 
     @staticmethod
     def clear():
