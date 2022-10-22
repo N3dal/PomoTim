@@ -40,10 +40,23 @@ class App(tk.Tk):
         # set default value for this var;
         self.timer_value.set("25:00")
 
-        # self.timer_label = tk.Label()
+        self.timer_label = tk.Label(
+            master=self,
+            textvariable=self.timer_value,
+            **Defaults.TIMER_LABEL_PROPERTIES
+        )
+
+        # now place all the widgets after creating them;
+        self.place()
 
     def show(self):
         self.mainloop()
+
+    def place(self):
+        """
+            place all the widgets on the window;
+        """
+        self.timer_label.place(x=140, y=100)
 
 
 def main():
