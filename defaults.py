@@ -12,6 +12,17 @@ class Defaults:
     WIN_WIDTH = 400
     WIN_HEIGHT = 300
     BACKGROUND_COLOR = "gray25"
+    WIN_FONT_FAMILY = "Ubuntu"
+
+    TIMER_LABEL_PROPERTIES = {
+
+        "bg": Defaults.BACKGROUND_COLOR,
+        "font": (Defaults.WIN_FONT_FAMILY, 28, "bold"),
+        "highlightthickness": 1,
+        "highlightbackground": "gray21",
+        "fg": "gray85"
+
+    }
 
     @staticmethod
     def clear():
