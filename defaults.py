@@ -16,8 +16,8 @@ class Defaults:
 
     TIMER_LABEL_PROPERTIES = {
 
-        "bg": Defaults.BACKGROUND_COLOR,
-        "font": (Defaults.WIN_FONT_FAMILY, 28, "bold"),
+        "bg": BACKGROUND_COLOR,
+        "font": (WIN_FONT_FAMILY, 28, "bold"),
         "highlightthickness": 1,
         "highlightbackground": "gray21",
         "fg": "gray85"
