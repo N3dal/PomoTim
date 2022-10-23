@@ -72,7 +72,8 @@ class App(tk.Tk):
         self.__timer_status = False
 
         # set the tick-thread;
-        self.tick_thread = threading.Thread(target=self.__timer_tick)
+        self.__tick_thread = threading.Thread(
+            target=self.__timer_tick, name="timer_tick")
 
         self.start_app()
 
@@ -155,11 +156,13 @@ class App(tk.Tk):
         if self.btn.cget("image") == "play_white":
             self.btn.configure(image=self.images["pause_white"])
             self.__timer_status = True
+
             try:
-                self.tick_thread.start()
+                self.__tick_thread.start()
 
             except RuntimeError:
                 # if we click on the button multiple times;
+                print("threading")
                 return None
 
         elif self.btn.cget("image") == "pause_white":
