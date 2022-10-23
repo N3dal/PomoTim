@@ -33,6 +33,12 @@ class App(tk.Tk):
         # set the background color;
         self.configure(bg=Defaults.BACKGROUND_COLOR)
 
+        # make the window un-resizable;
+        self.resizable(0, 0)
+
+        # load all the images;
+        images = self.__load_images()
+
         # setup the timer var for the label;
         # this variable will update our time on the screen;
 
@@ -50,16 +56,15 @@ class App(tk.Tk):
         self.btn = tk.Button(
             master=self,
             command=None,
-            image=None,
+            image=images["play_white"],
             text="click",
-            **Defaults.BTN_PROPERTIES
+            ** Defaults.BTN_PROPERTIES
         )
 
         # now place all the widgets after creating them;
         self.place()
 
-    def show(self):
-        self.mainloop()
+        self.start_app()
 
     def place(self):
         """
@@ -72,6 +77,13 @@ class App(tk.Tk):
         # place the button;
         self.btn.place(x=185, y=200)
 
+    def start_app(self, **options):
+        """
+            start the app;
+        """
+
+        self.mainloop()
+
     def __load_images(self):
         """
             load all needed images;
@@ -79,16 +91,16 @@ class App(tk.Tk):
             return dict;
         """
         # import our pictures.
-        play_color_pic = tkinter.PhotoImage(
+        play_color_pic = tk.PhotoImage(
             file="./assests/pictures/play_color.png", name="play_color")
 
-        play_white_pic = tkinter.PhotoImage(
+        play_white_pic = tk.PhotoImage(
             file="./assests/pictures/play_white.png", name="play_white")
 
-        pause_color_pic = tkinter.PhotoImage(
+        pause_color_pic = tk.PhotoImage(
             file="./assests/pictures/pause_color.png", name="pause_color")
 
-        pause_white_pic = tkinter.PhotoImage(
+        pause_white_pic = tk.PhotoImage(
             file="./assests/pictures/pause_white.png", name="pause_white")
 
         return {
@@ -101,7 +113,6 @@ class App(tk.Tk):
 
 def main():
     app = App()
-    app.show()
 
 
 if __name__ == "__main__":
