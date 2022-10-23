@@ -40,10 +40,19 @@ class App(tk.Tk):
         # set default value for this var;
         self.timer_value.set("25:00")
 
+        # create the window widgets;
         self.timer_label = tk.Label(
             master=self,
             textvariable=self.timer_value,
             **Defaults.TIMER_LABEL_PROPERTIES
+        )
+
+        self.btn = tk.Button(
+            master=self,
+            command=None,
+            image=None,
+            text="click",
+            **Defaults.BTN_PROPERTIES
         )
 
         # now place all the widgets after creating them;
@@ -56,7 +65,12 @@ class App(tk.Tk):
         """
             place all the widgets on the window;
         """
+
+        # place the label;
         self.timer_label.place(x=140, y=100)
+
+        # place the button;
+        self.btn.place(x=185, y=200)
 
 
 def main():
