@@ -17,6 +17,8 @@ import tkinter as tk
 import threading
 
 
+# TODO: add reset button that appears only when we stop the timer;
+
 Defaults.clear()
 
 
@@ -64,6 +66,14 @@ class App(tk.Tk):
         # now place all the widgets after creating them;
         self.place()
 
+        # setup the timer status,
+        # that we will use it for stop and staring the timer;
+        # False for stop the timer and True for start the timer;
+        self.__timer_status = False
+
+        # set the tick-thread;
+        self.tick_thread = threading.Thread(target=self.__timer_tick)
+
         self.start_app()
 
     def place(self):
@@ -110,6 +120,31 @@ class App(tk.Tk):
             "pause_white": pause_white_pic
         }
 
+    def __timer_tick(self):
+        """
+            start the timer or stop it;
+        """
+
+        # get the time from the timer label, the minutes and seconds;
+        timer_value_minutes, timer_value_seconds = self.timer_value.get().split(":")
+
+        # and turn it to seconds;
+        timer_value_in_seconds = int(
+            timer_value_minutes) * 60 + int(timer_value_seconds)
+
+        while timer_value_in_seconds and self.__timer_status:
+            time_in_minutes, time_in_seconds = divmod(
+                timer_value_in_seconds, 60)
+            timer_value_in_seconds -= 1
+
+            timer_new_value = f"{str(time_in_minutes).zfill(2)}:{str(time_in_seconds).zfill(2)}"
+
+            # now update the timer value;
+            self.timer_value.set(timer_new_value)
+            time.sleep(1)
+
+        return None
+
     def __btn_event(self):
         """
             start/pause button event;
@@ -119,9 +154,17 @@ class App(tk.Tk):
 
         if self.btn.cget("image") == "play_white":
             self.btn.configure(image=self.images["pause_white"])
+            self.__timer_status = True
+            try:
+                self.tick_thread.start()
+
+            except RuntimeError:
+                # if we click on the button multiple times;
+                return None
 
         elif self.btn.cget("image") == "pause_white":
             self.btn.configure(image=self.images["play_white"])
+            self.__timer_status = False
 
         return None
 
