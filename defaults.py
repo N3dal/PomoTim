@@ -31,7 +31,8 @@ class Defaults:
         "border": 0,
         "activebackground": BACKGROUND_COLOR,
         "highlightbackground": "gray21",
-        "fg": "gray85"
+        "fg": "gray85",
+        "cursor": "hand2"
 
     }
 
