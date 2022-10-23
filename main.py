@@ -55,7 +55,7 @@ class App(tk.Tk):
 
         self.btn = tk.Button(
             master=self,
-            command=None,
+            command=self.__btn_event,
             image=self.images["play_white"],
             text="click",
             ** Defaults.BTN_PROPERTIES
@@ -110,10 +110,20 @@ class App(tk.Tk):
             "pause_white": pause_white_pic
         }
 
-    def btn_event(self):
+    def __btn_event(self):
         """
             start/pause button event;
+
+            return None
         """
+
+        if self.btn.cget("image") == "play_white":
+            self.btn.configure(image=self.images["pause_white"])
+
+        elif self.btn.cget("image") == "pause_white":
+            self.btn.configure(image=self.images["play_white"])
+
+        return None
 
 
 def main():
