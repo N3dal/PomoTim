@@ -37,7 +37,7 @@ class App(tk.Tk):
         self.resizable(0, 0)
 
         # load all the images;
-        images = self.__load_images()
+        self.images = self.__load_images()
 
         # setup the timer var for the label;
         # this variable will update our time on the screen;
@@ -56,7 +56,7 @@ class App(tk.Tk):
         self.btn = tk.Button(
             master=self,
             command=None,
-            image=images["play_white"],
+            image=self.images["play_white"],
             text="click",
             ** Defaults.BTN_PROPERTIES
         )
@@ -72,10 +72,10 @@ class App(tk.Tk):
         """
 
         # place the label;
-        self.timer_label.place(x=140, y=100)
+        self.timer_label.place(x=150, y=100)
 
         # place the button;
-        self.btn.place(x=185, y=200)
+        self.btn.place(x=185, y=180)
 
     def start_app(self, **options):
         """
@@ -109,6 +109,11 @@ class App(tk.Tk):
             "pause_color": pause_color_pic,
             "pause_white": pause_white_pic
         }
+
+    def btn_event(self):
+        """
+            start/pause button event;
+        """
 
 
 def main():
