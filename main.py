@@ -72,6 +72,32 @@ class App(tk.Tk):
         # place the button;
         self.btn.place(x=185, y=200)
 
+    def __load_images(self):
+        """
+            load all needed images;
+
+            return dict;
+        """
+        # import our pictures.
+        play_color_pic = tkinter.PhotoImage(
+            file="./assests/pictures/play_color.png", name="play_color")
+
+        play_white_pic = tkinter.PhotoImage(
+            file="./assests/pictures/play_white.png", name="play_white")
+
+        pause_color_pic = tkinter.PhotoImage(
+            file="./assests/pictures/pause_color.png", name="pause_color")
+
+        pause_white_pic = tkinter.PhotoImage(
+            file="./assests/pictures/pause_white.png", name="pause_white")
+
+        return {
+            "play_color": play_color_pic,
+            "play_white": play_white_pic,
+            "pause_color": pause_color_pic,
+            "pause_white": pause_white_pic
+        }
+
 
 def main():
     app = App()
