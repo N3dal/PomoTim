@@ -49,7 +49,7 @@ class App(tk.Tk):
 
         self.timer_value = tk.StringVar()
         # set default value for this var;
-        self.timer_value.set("25:00")
+        self.timer_value.set("00:03")
 
         # create the window widgets;
         self.timer_label = tk.Label(
@@ -130,13 +130,13 @@ class App(tk.Tk):
         """
 
         # get the time from the timer label, the minutes and seconds;
-        timer_value_minutes, timer_value_seconds = self.timer_value.get().split(":")
+        timer_label_value_minutes, timer_label_value_seconds = self.timer_value.get().split(":")
 
         # and turn it to seconds;
         timer_value_in_seconds = int(
-            timer_value_minutes) * 60 + int(timer_value_seconds)
+            timer_label_value_minutes) * 60 + int(timer_label_value_seconds)
 
-        while timer_value_in_seconds and self.__timer_status:
+        while timer_value_in_seconds > -1 and self.__timer_status:
             time_in_minutes, time_in_seconds = divmod(
                 timer_value_in_seconds, 60)
             timer_value_in_seconds -= 1
