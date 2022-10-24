@@ -21,6 +21,7 @@ import threading
 
 
 # TODO: fix threading bug;
+# TODO: fix threading bug when we exit;
 
 Defaults.clear()
 
@@ -49,7 +50,7 @@ class App(tk.Tk):
 
         self.timer_value = tk.StringVar()
         # set default value for this var;
-        self.timer_value.set("00:03")
+        self.timer_value.set("15:00")
 
         # create the window widgets;
         self.timer_label = tk.Label(
@@ -76,7 +77,12 @@ class App(tk.Tk):
 
         # set the tick-thread;
         self.__tick_thread = threading.Thread(
-            target=self.__timer_tick, name="timer_tick")
+            target=self.__timer_tick, name="timer_tick"
+        )
+
+        self.__blinking_thread = threading.Thread(
+            target=self.__label_blinking, name="label_blinking"
+        )
 
         self.start_app()
 
@@ -165,12 +171,40 @@ class App(tk.Tk):
 
             except RuntimeError:
                 # if we click on the button multiple times;
-                print("threading")
+                print("Timer Tick Threading!")
                 return None
 
         elif self.btn.cget("image") == "pause_white":
             self.btn.configure(image=self.images["play_white"])
             self.__timer_status = False
+
+            try:
+                self.__blinking_thread.start()
+
+            except RuntimeError:
+                print("blinking Threading!")
+                return None
+
+        return None
+
+    def __label_blinking(self):
+        """
+            simple event that will cause to change the color of the,
+            label to blue then to the white if we stop the timer,
+            and keep blinking until we start the timer again;
+
+            return None;
+        """
+
+        while not self.__timer_status:
+
+            self.timer_label.configure(fg=Defaults.LABEL_BLINKING_FG)
+            self.update()
+            time.sleep(0.5)  # sleep for half millisecond;
+
+            self.timer_label.configure(fg=Defaults.LABEL_FG_BASE)
+            self.update()
+            time.sleep(0.5)  # sleep for half millisecond;
 
         return None
 
