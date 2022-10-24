@@ -13,6 +13,8 @@ class Defaults:
     WIN_HEIGHT = 300
     BACKGROUND_COLOR = "gray25"
     WIN_FONT_FAMILY = "Ubuntu"
+    LABEL_FG_BASE = "gray85"
+    LABEL_BLINKING_FG = "royalblue"
 
     TIMER_LABEL_PROPERTIES = {
 
@@ -20,7 +22,7 @@ class Defaults:
         "font": (WIN_FONT_FAMILY, 28, "bold"),
         "highlightthickness": 1,
         "highlightbackground": "gray21",
-        "fg": "gray85"
+        "fg": LABEL_FG_BASE
 
     }
 
