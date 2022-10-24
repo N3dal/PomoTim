@@ -19,6 +19,9 @@ import threading
 
 # TODO: add reset button that appears only when we stop the timer;
 
+
+# TODO: fix threading bug;
+
 Defaults.clear()
 
 
