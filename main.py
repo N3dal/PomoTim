@@ -15,6 +15,7 @@ from defaults import Defaults
 import time
 import tkinter as tk
 import threading
+from sys import exit
 
 
 # TODO: add reset button that appears only when we stop the timer;
@@ -24,6 +25,39 @@ import threading
 # TODO: fix threading bug when we exit;
 
 Defaults.clear()
+
+
+# class CustomThread(threading.Thread):
+#     """
+#         custom thread class with stop method;
+#     """
+
+#     def __init__(self, func, args=[]):
+#         super().__init__()
+
+#         self.func = func
+#         self.args = args
+
+#         # set the stop and start flag;
+#         self.__stop_flag = threading.Event()
+
+#     def stop(self):
+#         """set the internal flag to false"""
+#         self.__stop_flag.clear()
+
+#         return None
+
+#     def run(self):
+
+#         # set the internal flag to true;
+#         self.__stop_flag.set()
+
+#         while self.__stop_flag.is_set():
+
+#             # call the function now;
+#             self.func(*self.args)
+
+#         return None
 
 
 class App(tk.Tk):
@@ -78,6 +112,10 @@ class App(tk.Tk):
         # set the tick-thread;
         self.__tick_thread = threading.Thread(
             target=self.__timer_tick, name="timer_tick"
+        )
+
+        self.__custom_tick_thread = CustomThread(
+            func=self.__timer_tick
         )
 
         self.__blinking_thread = threading.Thread(
