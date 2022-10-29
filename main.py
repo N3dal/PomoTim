@@ -109,10 +109,15 @@ class App(tk.Tk):
 
             return tuple(x:int, y:int);
         """
+        window_width, window_height = self.winfo_width(), self.winfo_height()
 
-        widget_x_coords = (self.winfo_width() -
+        # guard-condition;
+        if window_height + window_width < 10:
+            window_width, window_height = Defaults.WIN_WIDTH, Defaults.WIN_HEIGHT
+
+        widget_x_coords = (window_width -
                            widget.winfo_reqwidth()) // x_factor
-        widget_y_coords = (self.winfo_height() -
+        widget_y_coords = (window_height -
                            widget.winfo_reqheight()) // y_factor
 
         return widget_x_coords, widget_y_coords
