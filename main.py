@@ -15,49 +15,53 @@ from defaults import Defaults
 import time
 import tkinter as tk
 import threading
+import _thread
 from sys import exit
 
 
 # TODO: add reset button that appears only when we stop the timer;
 
 
-# TODO: fix threading bug;
-# TODO: fix threading bug when we exit;
-
 Defaults.clear()
 
 
-# class CustomThread(threading.Thread):
-#     """
-#         custom thread class with stop method;
-#     """
+class CustomThread:
+    """
+        custom thread class with stop method;
+    """
 
-#     def __init__(self, func, args=[]):
-#         super().__init__()
+    def __init__(self, func, name: str, args=tuple()):
 
-#         self.func = func
-#         self.args = args
+        self.func = func
+        self.args = args
+        self.name = name
+        self.thread_id = None
 
-#         # set the stop and start flag;
-#         self.__stop_flag = threading.Event()
+        self.__stop_flag = True
 
-#     def stop(self):
-#         """set the internal flag to false"""
-#         self.__stop_flag.clear()
+        # set the stop and start flag;
+        # self.__stop_flag = threading.Event()
 
-#         return None
+    def stop(self):
+        """Exit from the thread;"""
 
-#     def run(self):
+        _thread.exit()
 
-#         # set the internal flag to true;
-#         self.__stop_flag.set()
+        return None
 
-#         while self.__stop_flag.is_set():
+    def run(self):
 
-#             # call the function now;
-#             self.func(*self.args)
+        self.thread_id = _thread.start_new_thread(self.func, self.args)
 
-#         return None
+        return None
+
+    def get_id(self):
+        """
+            return the thread identifier;
+
+        """
+
+        return self.thread_id
 
 
 class App(tk.Tk):
@@ -110,16 +114,13 @@ class App(tk.Tk):
         self.__timer_status = False
 
         # set the tick-thread;
-        self.__tick_thread = threading.Thread(
-            target=self.__timer_tick, name="timer_tick"
+
+        self.__tick_thread = CustomThread(
+            func=self.__timer_tick, name="tick_thread"
         )
 
-        self.__custom_tick_thread = CustomThread(
-            func=self.__timer_tick
-        )
-
-        self.__blinking_thread = threading.Thread(
-            target=self.__label_blinking, name="label_blinking"
+        self.__blinking_thread = CustomThread(
+            func=self.__label_blinking, name="label_blinking"
         )
 
         self.start_app()
@@ -201,11 +202,13 @@ class App(tk.Tk):
         """
 
         if self.btn.cget("image") == "play_white":
+
             self.btn.configure(image=self.images["pause_white"])
             self.__timer_status = True
 
             try:
-                self.__tick_thread.start()
+                # self.__tick_thread.start()
+                self.__tick_thread.run()
 
             except RuntimeError:
                 # if we click on the button multiple times;
@@ -213,11 +216,12 @@ class App(tk.Tk):
                 return None
 
         elif self.btn.cget("image") == "pause_white":
+
             self.btn.configure(image=self.images["play_white"])
             self.__timer_status = False
 
             try:
-                self.__blinking_thread.start()
+                self.__blinking_thread.run()
 
             except RuntimeError:
                 print("blinking Threading!")
