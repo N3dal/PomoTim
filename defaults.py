@@ -9,8 +9,8 @@ from os import system
 class Defaults:
     """"""
     TITLE = "PomoTim"
-    WIN_WIDTH = 400
-    WIN_HEIGHT = 300
+    WIN_WIDTH = 250
+    WIN_HEIGHT = 250
     BACKGROUND_COLOR = "gray25"
     WIN_FONT_FAMILY = "Ubuntu"
     LABEL_FG_BASE = "gray85"
