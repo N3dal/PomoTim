@@ -38,7 +38,7 @@ class App(tk.Tk):
         self.configure(bg=Defaults.BACKGROUND_COLOR)
 
         # make the window un-resizable;
-        self.resizable(0, 0)
+        # self.resizable(0, 0)
 
         # load all the images;
         self.images = self.__load_images()
@@ -91,10 +91,31 @@ class App(tk.Tk):
         """
 
         # place the label;
-        self.timer_label.place(x=150, y=100)
+
+        timer_label_x_coords, timer_label_y_coords = self.center_widget(
+            widget=self.timer_label)
+
+        self.timer_label.place(x=timer_label_x_coords, y=timer_label_y_coords)
 
         # place the button;
-        self.btn.place(x=185, y=180)
+        btn_x_coords, btn_y_coords = self.center_widget(
+            widget=self.btn, y_factor=1.3)
+        self.btn.place(x=btn_x_coords, y=btn_y_coords)
+
+    @staticmethod
+    def center_widget(widget, y_factor=2, x_factor=2):
+        """
+            center any widget;
+
+
+            return tuple(x:int, y:int);
+        """
+        widget_x_coords = (Defaults.WIN_WIDTH -
+                           widget.winfo_reqwidth()) // x_factor
+        widget_y_coords = (Defaults.WIN_HEIGHT -
+                           widget.winfo_reqheight()) // y_factor
+
+        return widget_x_coords, widget_y_coords
 
     def start_app(self, **options):
         """
