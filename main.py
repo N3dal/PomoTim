@@ -102,17 +102,17 @@ class App(tk.Tk):
             widget=self.btn, y_factor=1.3)
         self.btn.place(x=btn_x_coords, y=btn_y_coords)
 
-    @staticmethod
-    def center_widget(widget, y_factor=2, x_factor=2):
+    def center_widget(self, widget, y_factor=2, x_factor=2):
         """
             center any widget;
 
 
             return tuple(x:int, y:int);
         """
-        widget_x_coords = (Defaults.WIN_WIDTH -
+
+        widget_x_coords = (self.winfo_width() -
                            widget.winfo_reqwidth()) // x_factor
-        widget_y_coords = (Defaults.WIN_HEIGHT -
+        widget_y_coords = (self.winfo_height() -
                            widget.winfo_reqheight()) // y_factor
 
         return widget_x_coords, widget_y_coords
@@ -181,6 +181,9 @@ class App(tk.Tk):
 
             return None
         """
+
+        self.place()
+        self.update()
 
         if self.btn.cget("image") == "play_white":
 
