@@ -40,6 +40,11 @@ class App(tk.Tk):
         # make the window un-resizable;
         # self.resizable(0, 0)
 
+        # set the minimum size for the window;
+        self.minsize(width=Defaults.WIN_WIDTH, height=Defaults.WIN_HEIGHT)
+
+        # self.protocol("WM_SAVE_YOURSELF", lambda: print("resize"))
+
         # load all the images;
         self.images = self.__load_images()
 
@@ -188,7 +193,6 @@ class App(tk.Tk):
         """
 
         self.place()
-        self.update()
 
         if self.btn.cget("image") == "play_white":
 
