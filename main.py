@@ -53,7 +53,7 @@ class App(tk.Tk):
 
         self.timer_value = tk.StringVar()
         # set default value for this var;
-        self.timer_value.set("15:00")
+        self.timer_value.set("00:03")
 
         # create the window widgets;
         self.timer_label = tk.Label(
@@ -175,6 +175,7 @@ class App(tk.Tk):
             timer_label_value_minutes) * 60 + int(timer_label_value_seconds)
 
         while timer_value_in_seconds > -1 and self.__timer_status:
+
             time_in_minutes, time_in_seconds = divmod(
                 timer_value_in_seconds, 60)
             timer_value_in_seconds -= 1
@@ -184,6 +185,14 @@ class App(tk.Tk):
             # now update the timer value;
             self.timer_value.set(timer_new_value)
             time.sleep(1)
+
+        if self.__timer_status:
+            # set the timer after its done;
+            self.timer_value.set("15:00")
+
+            # and then call the button event to,
+            # change the button and stop the thread;
+            self.__btn_event()
 
         return None
 
