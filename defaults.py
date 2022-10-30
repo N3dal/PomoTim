@@ -22,10 +22,9 @@ class Defaults:
 
         "bg": BACKGROUND_COLOR,
         "font": (WIN_FONT_FAMILY, 28, "bold"),
-        "highlightthickness": 1,
+        "highlightthickness": 0,
         "highlightbackground": "gray21",
         "fg": LABEL_FG_BASE
-
     }
 
     BTN_PROPERTIES = {
