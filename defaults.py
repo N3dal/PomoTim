@@ -9,6 +9,8 @@ from os import system
 class Defaults:
     """"""
     TITLE = "PomoTim"
+
+    # notice that those also are the minimum width and height;
     WIN_WIDTH = 250
     WIN_HEIGHT = 250
     BACKGROUND_COLOR = "gray25"
