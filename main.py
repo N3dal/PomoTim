@@ -38,12 +38,12 @@ class App(tk.Tk):
         self.configure(bg=Defaults.BACKGROUND_COLOR)
 
         # make the window un-resizable;
-        # self.resizable(0, 0)
+        self.resizable(0, 0)
 
         # set the minimum size for the window;
         self.minsize(width=Defaults.WIN_WIDTH, height=Defaults.WIN_HEIGHT)
 
-        # self.protocol("WM_SAVE_YOURSELF", lambda: print("resize"))
+        # self.protocol("WM_DELETE_WINDOW", lambda: print("resize"))
 
         # load all the images;
         self.images = self.__load_images()
@@ -61,6 +61,8 @@ class App(tk.Tk):
             textvariable=self.timer_value,
             **Defaults.TIMER_LABEL_PROPERTIES
         )
+
+        # self.timer_label.bind("<>", lambda e: print("Hi"))
 
         self.btn = tk.Button(
             master=self,
@@ -192,7 +194,7 @@ class App(tk.Tk):
             return None
         """
 
-        self.place()
+        # self.place() # DEBUG;
 
         if self.btn.cget("image") == "play_white":
 
