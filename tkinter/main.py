@@ -12,6 +12,7 @@
 # ///
 # -----------------------------------------------------------------
 from defaults import Defaults
+from defaults import OS_NAME
 import time
 import tkinter as tk
 from custom_thread import CustomThread
@@ -62,7 +63,14 @@ class App(tk.Tk):
             **Defaults.TIMER_LABEL_PROPERTIES
         )
 
-        # self.timer_label.bind("<>", lambda e: print("Hi"))
+        if OS_NAME == "posix":
+            # bind the mouse wheel with event;
+            # this bind in case of linux;
+            self.timer_label.bind("<Button-4>", self.__mouse_wheel_event)
+            self.timer_label.bind("<Button-5>", self.__mouse_wheel_event)
+
+        elif OS_NAME == "windows":
+            self.timer_label.bind("<MouseWheel>", self.__mouse_wheel_event)
 
         self.btn = tk.Button(
             master=self,
@@ -162,9 +170,12 @@ class App(tk.Tk):
             "pause_white": pause_white_pic
         }
 
-    def __timer_tick(self):
+    def timer_value_to_seconds(self):
         """
-            start the timer or stop it;
+            convert the timer value in the label,
+            into seconds as an integer;
+
+            return seconds:int
         """
 
         # get the time from the timer label, the minutes and seconds;
@@ -174,13 +185,35 @@ class App(tk.Tk):
         timer_value_in_seconds = int(
             timer_label_value_minutes) * 60 + int(timer_label_value_seconds)
 
+        return timer_value_in_seconds
+
+    def seconds_to_timer_value(self, timer_value_in_seconds: int):
+        """
+            convert the total seconds value to the string,
+            timer format;
+
+            return timer_value:str
+        """
+
+        time_in_minutes, time_in_seconds = divmod(timer_value_in_seconds, 60)
+        timer_new_value = f"{str(time_in_minutes).zfill(2)}:{str(time_in_seconds).zfill(2)}"
+
+        return timer_new_value
+
+    def __timer_tick(self):
+        """
+            start the timer or stop it;
+        """
+
+        # and turn it to seconds;
+        timer_value_in_seconds = self.timer_value_to_seconds()
+
         while timer_value_in_seconds > -1 and self.__timer_status:
 
-            time_in_minutes, time_in_seconds = divmod(
-                timer_value_in_seconds, 60)
-            timer_value_in_seconds -= 1
+            timer_new_value = self.seconds_to_timer_value(
+                timer_value_in_seconds)
 
-            timer_new_value = f"{str(time_in_minutes).zfill(2)}:{str(time_in_seconds).zfill(2)}"
+            timer_value_in_seconds -= 1
 
             # now update the timer value;
             self.timer_value.set(timer_new_value)
@@ -251,6 +284,37 @@ class App(tk.Tk):
             self.timer_label.configure(fg=Defaults.LABEL_FG_BASE)
             self.update()
             time.sleep(0.5)  # sleep for half millisecond;
+
+        return None
+
+    def __mouse_wheel_event(self, e):
+        """
+            when the mouse wheel is moving then,
+            either increase the timer label or,
+            decrease it;
+
+            return None;
+        """
+        timer_in_seconds = self.timer_value_to_seconds()
+
+        if e.num == 4:
+            # in case of decreasing the event.num is 4;
+
+            # guard condition;
+            if timer_in_seconds <= 0:
+                # if its zero;
+                return None
+
+            timer_in_seconds -= 10
+
+        if e.num == 5:
+            # in case of increasing the event.num is 5;
+
+            timer_in_seconds += 10
+
+        timer_new_value = self.seconds_to_timer_value(timer_in_seconds)
+
+        self.timer_value.set(timer_new_value)
 
         return None
 
