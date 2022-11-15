@@ -3,6 +3,6 @@
 simple timer app built using python and Tkinter
 
 
-## Demo:
+## Demo
 
-![screenshot01]()
+![screenshot01]("./assests/demo_01.gif")
