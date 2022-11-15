@@ -297,20 +297,37 @@ class App(tk.Tk):
         """
         timer_in_seconds = self.timer_value_to_seconds()
 
-        if e.num == 4:
-            # in case of decreasing the event.num is 4;
+        # the value that we increase or decrease,
+        # either in our minutes or seconds;
+        # in case of minutes we add or remove 60 seconds,
+        # and that is obvious, and in case of seconds,
+        # we add or remove 1 second;
+        value = 60 if e.x < 47 else 1
 
-            # guard condition;
-            if timer_in_seconds <= 0:
-                # if its zero;
+        MAX_VALUE = 99 * 60
+        MIN_VALUE = 0
+
+        if e.num == 4:
+            # in case of increasing the event.num is 4;
+
+            if timer_in_seconds > MAX_VALUE:
+                self.timer_value.set("99:59")
+
                 return None
 
-            timer_in_seconds -= 10
+            timer_in_seconds += value
 
         if e.num == 5:
-            # in case of increasing the event.num is 5;
 
-            timer_in_seconds += 10
+            # in case of decreasing the event.num is 5;
+
+            # guard condition;
+            if timer_in_seconds <= MIN_VALUE:
+                # if its zero;
+                self.timer_value.set("00:00")
+                return None
+
+            timer_in_seconds -= value
 
         timer_new_value = self.seconds_to_timer_value(timer_in_seconds)
 
