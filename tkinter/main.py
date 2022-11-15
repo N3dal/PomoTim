@@ -288,6 +288,12 @@ class App(tk.Tk):
 
             return None;
         """
+
+        if self.__timer_status:
+            # if the timer is active;
+            # aka the timer start ticking
+            return
+
         timer_in_seconds = self.timer_value_to_seconds()
 
         # the value that we increase or decrease,
@@ -297,7 +303,7 @@ class App(tk.Tk):
         # we add or remove 1 second;
         value = 60 if e.x < 47 else 1
 
-        MAX_VALUE = 99 * 60
+        MAX_VALUE = 99 * 60  # 99 minutes;
         MIN_VALUE = 0
 
         if e.num == 4:
