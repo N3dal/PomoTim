@@ -1,8 +1,8 @@
 # Python Timer App
 
-simple timer app built using python and Tkinter
+simple timer app built using python using Tkinter and PyQt5;
 
 
-## Demo
+## Tkinter Demo:
 
-![screenshot01]("./assests/demo_01.gif")
+![screenshot01]("./tkinter/assests/demo_01.gif")
