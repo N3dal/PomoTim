@@ -1,2 +1,8 @@
-# this is one of 50 python projects.
-this is simply pomodoro timer app using tkinter gui in python.
+# Python Timer App
+
+simple timer app built using python and Tkinter
+
+
+## Demo:
+
+![screenshot01]()
