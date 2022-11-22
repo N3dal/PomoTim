@@ -40,6 +40,10 @@ class TimerLabel(QLabel):
 
         self.setGeometry(0, 0, 150, 100)
 
+        # setup the timer;
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.__tick)
+
     def set_time(self, time: str):
         """
             update the time on the label;
@@ -77,6 +81,25 @@ class TimerLabel(QLabel):
             return string;
         """
 
+    def __tick(self):
+        """
+            Start the timer ticking;
+
+            return None
+        """
+
+    def __blink(self):
+        """"""
+        pass
+
+    def start(self):
+        """"""
+        pass
+
+    def stop(self):
+        """"""
+        pass
+
 
 class MainWindow(QMainWindow):
     """"""
@@ -94,10 +117,10 @@ class MainWindow(QMainWindow):
                            font-family: {Defaults.WIN_FONT_FAMILY};
                            """)
 
-        self.timer_label = TimerLabel(parent=self, text="12:23")
+        self.timer_label = TimerLabel(parent=self, text="00:00")
 
         self.timer_label.move(
-            (Defaults.WIN_WIDTH - self.timer_label.width()) // 2 + 10,  # center on x;
+            (Defaults.WIN_WIDTH - self.timer_label.width()) // 2 + 11,  # center on x;
             (Defaults.WIN_HEIGHT - self.timer_label.height())//2  # center on y;
         )
 
