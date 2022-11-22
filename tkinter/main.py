@@ -292,7 +292,7 @@ class App(tk.Tk):
         if self.__timer_status:
             # if the timer is active;
             # aka the timer start ticking
-            return
+            return None
 
         timer_in_seconds = self.timer_value_to_seconds()
 
@@ -300,7 +300,8 @@ class App(tk.Tk):
         # either in our minutes or seconds;
         # in case of minutes we add or remove 60 seconds,
         # and that is obvious, and in case of seconds,
-        # we add or remove 1 second;
+        # we add or remove 1 second, this value,
+        # depend on the mouse position;
         value = 60 if e.x < 47 else 1
 
         MAX_VALUE = 99 * 60  # 99 minutes;
@@ -320,13 +321,13 @@ class App(tk.Tk):
 
             # in case of decreasing the event.num is 5;
 
+            timer_in_seconds -= value
+
             # guard condition;
             if timer_in_seconds <= MIN_VALUE:
                 # if its zero;
                 self.timer_value.set("00:00")
                 return None
-
-            timer_in_seconds -= value
 
         timer_new_value = self.seconds_to_timer_value(timer_in_seconds)
 
