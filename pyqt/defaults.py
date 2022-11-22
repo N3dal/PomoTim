@@ -13,10 +13,10 @@ class Defaults:
     # notice that those also are the minimum width and height;
     WIN_WIDTH = 250
     WIN_HEIGHT = 250
-    BACKGROUND_COLOR = "gray25"
+    BACKGROUND_COLOR = "#fafafa"
     WIN_FONT_FAMILY = "Ubuntu"
-    LABEL_FG_BASE = "gray85"
-    LABEL_BLINKING_FG = "royalblue"
+    LABEL_FG_BASE = "#484b6a"
+    LABEL_BLINKING_FG = "#cd1b5b"
 
     @staticmethod
     def clear():
