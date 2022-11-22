@@ -244,6 +244,13 @@ class MainWindow(QMainWindow):
             (Defaults.WIN_HEIGHT - self.timer_label.height())//2  # center on y;
         )
 
+        self.start_pause_button = QPushButton(parent=self, text="Start")
+
+        self.start_pause_button.move(
+            (Defaults.WIN_WIDTH - self.start_pause_button.width()) // 2,  # center on x;
+            180
+        )
+
         self.timer_label.start()
 
 
