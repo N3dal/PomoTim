@@ -70,10 +70,58 @@ class TimerLabel(QLabel):
 
         return self.text()
 
-    def __format_time(self):
-        pass
+    def wheelEvent(self, event):
+        """
+            mouse wheel event;
+        """
 
-    @staticmethod
+        # guard condition;
+        if self.timer_status:
+            return None
+
+        # note:
+        # -120 => increase "mouse wheel go up"
+        # 120 => decrease "mouse wheel go down"
+        wheel_event = event.angleDelta().y()
+
+        # value to decrease or increase,
+        # depend on the mouse position,
+        # if its on minute or seconds;
+        if event.x() <= 50:
+            value = 60
+
+        elif event.x() >= 70:
+            value = 1
+
+        else:
+            value = 0
+
+        # now get the time in seconds;
+        time_in_seconds = self.__timer_value_to_seconds(self.get_time())
+
+        if wheel_event == -120:
+            # increase the timer;
+
+            time_in_seconds -= value
+
+            # guard-condition;
+            if time_in_seconds < 0:
+                self.set_time("00:00")
+
+                return None
+
+        if wheel_event == 120:
+            # decrease the timer;
+
+            time_in_seconds += value
+
+        new_timer_label_value = self.__seconds_to_timer_value(time_in_seconds)
+
+        self.set_time(new_timer_label_value)
+
+        return None
+
+    @ staticmethod
     def __timer_value_to_seconds(timer_value: str):
         """
             convert the time value in this form=> "xx:xx",
@@ -90,7 +138,7 @@ class TimerLabel(QLabel):
         except ValueError:
             raise Exception("Can't convert minutes or seconds to integers!!!")
 
-    @staticmethod
+    @ staticmethod
     def __seconds_to_timer_value(seconds: int):
         """
             convert the time in seconds into timer label format,
@@ -161,13 +209,14 @@ class TimerLabel(QLabel):
     def start(self):
         """"""
         self.timer_status = True
-        self.timer.start(10)  # time in ms;
+        self.timer.start(50)  # time in ms;
 
         return None
 
     def stop(self):
         """"""
         self.timer_status = False
+        self.timer.stop()
 
         return None
 
